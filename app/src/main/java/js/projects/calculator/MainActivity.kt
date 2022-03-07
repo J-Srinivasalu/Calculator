@@ -14,7 +14,6 @@ import kotlin.math.pow
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private var isDecimal = false
     private var invalidExpression = false
 
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
