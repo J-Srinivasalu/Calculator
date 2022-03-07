@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import js.projects.calculator.databinding.ActivityMainBinding
+import java.text.DecimalFormat
 import kotlin.math.pow
 
 
@@ -95,7 +96,10 @@ class MainActivity : AppCompatActivity() {
                 btn0.startAnimation(animation)
             }
             btnDecimal.setOnClickListener {
-                if(input.text.toString() == "Invalid expression") input.text = ""
+                if(input.text.toString() == "Invalid expression") {
+                    input.text = ""
+                    input.text = "0."
+                }
                 val str = input.text.toString()
                 if (str.isNotBlank() && !isOperator() && str.get(index = str.length-1) != '.') {
                     if (input.text.equals("")) binding.input.text = "0."
@@ -165,13 +169,15 @@ class MainActivity : AppCompatActivity() {
                 if(input.text.toString() == "Invalid expression") input.text = ""
                 val str = input.text.toString()
                 val result = evaluate(str)
+                val df = DecimalFormat("#")
+                df.maximumFractionDigits = 8
                 if(invalidExpression) {
                     val s = "Invalid expression"
                     input.text = s
                     invalidExpression = false
                 }
                 else{
-                    val r = result.toString()
+                    val r = df.format(result).toString()
                     input.text = r
                 }
                 val animation = AnimationUtils.loadAnimation(this@MainActivity, R.anim.button_animation)
